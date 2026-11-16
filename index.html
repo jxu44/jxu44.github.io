@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeffrey Xu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #2b2b2b; --text: #666; --line: #c9c9c9; --tint: #f0f6ff; --mono: "Roboto Mono", monospace; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font: 18px/1.75 Lora, Georgia, serif; color: var(--text); background: #fff; }
+  a { color: inherit; }
+  h1, h2, h3, .mono { font-family: var(--mono); color: var(--ink); font-weight: 500; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  section { padding: 6rem 0; scroll-margin-top: 3.5rem; }
+  section.tint { background: var(--tint); }
+  h2 { font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 3rem; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.95); border-bottom: 1px solid #eee; }
+  nav ul { display: flex; justify-content: center; gap: 2.2rem; list-style: none; margin: 0; padding: 1rem; flex-wrap: wrap; }
+  nav a { font: 500 .8rem var(--mono); letter-spacing: .25em; text-transform: uppercase; text-decoration: none; color: var(--ink); }
+  nav a:hover { opacity: .6; }
+
+  /* hero */
+  .hero { min-height: 88vh; display: flex; align-items: center; background: var(--ink); color: #bbb; }
+  .hero h1 { color: #fff; font-size: clamp(2.6rem, 7vw, 5rem); margin: 0 0 1rem; line-height: 1.1; }
+  .hero p { font-size: 1.25rem; max-width: 40rem; margin: 0 0 2.5rem; }
+  .btn { display: inline-block; padding: 1rem 3rem; border: 1px solid var(--line); font: 500 .85rem var(--mono); letter-spacing: .3em; text-transform: uppercase; text-decoration: none; color: var(--ink); transition: background .2s, color .2s; }
+  .btn:hover { background: var(--ink); color: #fff; }
+  .hero .btn { color: #fff; border-color: #fff; }
+  .hero .btn:hover { background: #fff; color: var(--ink); }
+
+  /* about */
+  .about { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+  .facts { list-style: none; margin: 0; padding: 0; }
+  .facts li { padding: .9rem 0; border-bottom: 1px solid #e3e3e3; }
+  .facts b { font: 700 .9rem var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink); margin-right: .4rem; }
+  .socials { display: flex; gap: 1.5rem; list-style: none; padding: 1.5rem 0 0; margin: 0; }
+  .socials a { display: block; width: 28px; height: 28px; color: var(--ink); }
+  .socials a:hover { opacity: .6; }
+  .socials svg { width: 100%; height: 100%; fill: currentColor; }
+  .about p:first-child { margin-top: 0; }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: 4rem; }
+  .timeline::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .entry { position: relative; border: 1px solid #aaa; padding: 2rem 2.5rem; margin-bottom: 3rem; background: inherit; }
+  .entry::before { content: ""; position: absolute; left: -4rem; top: 1.4rem; width: 4rem; height: 1px; background: var(--line); }
+  .entry::after { content: ""; position: absolute; left: calc(-4rem - 11px); top: calc(1.4rem - 11px); width: 20px; height: 20px; border: 1px solid #aaa; border-radius: 50%; background: #eee; }
+  .entry h3 { font-size: 1.5rem; margin: 0; }
+  .meta { font-style: italic; color: var(--ink); font-size: 1rem; margin: .2rem 0 1rem; }
+  .entry ul { margin: 0; padding-left: 1.5rem; }
+  .entry strong { color: #555; }
+
+  /* projects */
+  .sub { margin: -2rem 0 3rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+  .card { display: block; background: var(--ink); color: #8a8a8a; border-radius: 4px; padding: 3rem 2.2rem; text-decoration: none; transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,.2); }
+  .card svg { width: 56px; height: 56px; stroke: #fff; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { color: #fff; font-size: 1.4rem; margin: 1.5rem 0 .8rem; }
+  .card p { margin: 0 0 1.5rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .tags span { font: .8rem var(--mono); color: #fff; border: 2px solid #ddd; border-radius: 999px; padding: .15rem .8rem; }
+
+  /* awards */
+  .awards { list-style: none; padding: 0; margin: 0; }
+  .awards li { padding: 1rem 0; border-bottom: 1px solid #e3e3e3; }
+  .awards b { font-family: var(--mono); color: var(--ink); font-weight: 500; }
+
+  footer { background: var(--ink); color: #999; text-align: center; padding: 3rem 1rem; font-size: .9rem; }
+  footer .socials { justify-content: center; padding: 0 0 1rem; }
+  footer .socials a { color: #fff; }
+
+  /* scroll-in transitions; only hide content when JS is running so it never stays invisible */
+  .js .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+  @media (max-width: 760px) {
+    .about { grid-template-columns: 1fr; }
+    .timeline { padding-left: 2rem; }
+    .entry { padding: 1.5rem; }
+    .entry::before { left: -2rem; width: 2rem; }
+    .entry::after { left: calc(-2rem - 11px); }
+  }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#awards">Awards</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="wrap reveal">
+    <h1>Hi, I'm Jeffrey Xu.</h1>
+    <p>CS student at Georgia Tech building AI-driven systems, compilers, and cloud infrastructure.</p>
+    <a class="btn" href="#about">More about me</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="reveal">
+      <ul class="facts">
+        <li><b>Name:</b> Jeffrey Xu</li>
+        <li><b>School:</b> Georgia Institute of Technology</li>
+        <li><b>Major:</b> Computer Science</li>
+        <li><b>Minor:</b> FinTech</li>
+        <li><b>Class:</b> 2028</li>
+      </ul>
+      <ul class="socials">
+        <li><a href="https://linkedin.com/in/jeffreyxu44" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></li>
+        <li><a href="https://github.com/jxu44" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg></a></li>
+        <li><a href="mailto:jeffreyxu44@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm0 2.9V17h16V9.9l-8 5z"/></svg></a></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <p>I'm a Computer Science student at Georgia Tech with a minor in FinTech. I like building systems end to end, from compiler backends and OS kernels to cloud automation and ML pipelines. I'm currently a Software Development Intern at Amazon Foundational Security Services, and previously interned on IBM's watsonx Orchestrate team.</p>
+      <p>On campus I do research with the Finch Compiler Lab, where I'm working on a Python port of Finch.jl for sparse tensor operations, and with the Adaptive Learning Pathways Lab on knowledge tracing for intro CS students. I also love hackathons, with first-place finishes at HackGT 11 and AI ATL.</p>
+      <p><strong>Languages:</strong> Python, C, Java, SQL, JavaScript, HTML/CSS<br><strong>Tools:</strong> Git, Docker, AWS, Kafka, Redis, FastAPI, React, MongoDB</p>
+      <a class="btn" href="resume.pdf" download>Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="tint">
+  <div class="wrap">
+    <h2 class="reveal">My Education</h2>
+    <div class="timeline">
+      <div class="entry reveal">
+        <h3>Georgia Institute of Technology</h3>
+        <p class="meta">B.S. Computer Science &nbsp;|&nbsp; Atlanta, GA &nbsp;|&nbsp; Expected May 2028</p>
+        <strong>Minor:</strong> FinTech<br>
+        <strong>GPA:</strong> 3.80<br>
+        <strong>Relevant coursework:</strong> Data Structures &amp; Algorithms, Algorithms Analysis, Database Systems, Computer Architecture, Networking, Objects &amp; Design
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2 class="reveal">My Experience</h2>
+    <div class="timeline">
+      <div class="entry reveal">
+        <h3>Amazon Foundational Security Services</h3>
+        <p class="meta">Software Development Intern &nbsp;|&nbsp; Sept. 2026 – Present</p>
+        <ul>
+          <li>Developing a Google Workspace/Cloud service request resolution workflow hosted on Bedrock with custom workflows and a knowledge base, onboarding 5000+ internal users.</li>
+          <li>Designing an EventBridge-driven automation with model inference on Lambda to asynchronously generate root-cause analysis and rule on business justifications.</li>
+          <li>Building an event-driven Slack bot with SQS and DynamoDB-backed status tracking for at-most-once processing, routing to a Bedrock agent grounded in SOPs and runbooks.</li>
+        </ul>
+      </div>
+      <div class="entry reveal">
+        <h3>IBM watsonx Orchestrate</h3>
+        <p class="meta">Software Development Intern &nbsp;|&nbsp; Jun. 2026 – Sept. 2026</p>
+        <ul>
+          <li>Developed a failure diagnostic tool using watsonx.ai for an on-demand Kubernetes cluster provisioning system, improving cluster resolution time by 90%.</li>
+          <li>Engineered a secure data pipeline with S3 caching connecting internal resource data to an external dashboard, a 4x speedup in retrieval.</li>
+          <li>Won 3rd place out of 300+ in an IBM hackathon for a shared-memory repo system that keeps context between agent instances.</li>
+        </ul>
+      </div>
+      <div class="entry reveal">
+        <h3>Finch Compiler Lab</h3>
+        <p class="meta">Research Intern &nbsp;|&nbsp; Sept. 2025 – Present</p>
+        <ul>
+          <li>Architecting Finch-Python, a port of Finch.jl to Python for optimizing sparse tensor operations.</li>
+          <li>Created codegen backends for algebraic operators, lowering to C and Numba via OOP abstractions.</li>
+          <li>Engineered an ABC-based architecture for algebraic property inference, ensuring type safety for new operators.</li>
+        </ul>
+      </div>
+      <div class="entry reveal">
+        <h3>Adaptive Learning Pathways Lab</h3>
+        <p class="meta">Research Intern &nbsp;|&nbsp; Aug. 2024 – Present</p>
+        <ul>
+          <li>Developing a knowledge tracing system for an intelligent tutoring platform that predicts learning trajectories and recommends questions for 300+ intro CS students.</li>
+          <li>Engineered an LSTM data pipeline with a weighted loss to handle class imbalance, achieving 0.79 AUC.</li>
+          <li>Deployed containerized autograders with AWS and Docker for scalable execution of student code.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="tint">
+  <div class="wrap">
+    <h2 class="reveal">Projects</h2>
+    <p class="sub reveal">Click on any project to learn more</p>
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/jxu44">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/><path d="M3 12h4l2-3 3 6 2-3h7"/></svg>
+        <h3>OncoAI</h3>
+        <p>Multi-modal cancer diagnostics combining scRNA-seq, mammograms, and pathology, with GPU inference and LLM-generated reports. 1st in track at HackGT 11 among 300+ competitors.</p>
+        <div class="tags"><span>Python</span><span>PyTorch</span><span>React</span><span>LLMs</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/jxu44">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5S5.5 10 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10 12 2.5 12 2.5z"/><path d="M9 15l2 2 4-4"/></svg>
+        <h3>SugarSense</h3>
+        <p>Real-time glucose forecasting from wearable diet and activity data, served by low-latency Flask APIs with sub-200ms predictions. 1st place, Anthropic Overall Track at AI ATL.</p>
+        <div class="tags"><span>TensorFlow</span><span>Flask</span><span>React</span><span>PostgreSQL</span></div>
+      </a>
+      <a class="card reveal" href="https://github.com/jxu44">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+        <h3>xv6 OS Kernel</h3>
+        <p>User-space threading via clone(), copy-on-write and lazy zero allocation, and Linux's Completely Fair Scheduler, for a 15% speedup on supplied workloads.</p>
+        <div class="tags"><span>C</span><span>Threading</span><span>Virtual Memory</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="wrap">
+    <h2 class="reveal">Awards</h2>
+    <ul class="awards">
+      <li class="reveal"><b>1st Place, Anthropic Overall Track</b> — AI ATL Hackathon (SugarSense)</li>
+      <li class="reveal"><b>1st Place in Track</b> — HackGT 11, 300+ competitors (OncoAI)</li>
+      <li class="reveal"><b>3rd Place</b> — IBM hackathon, 300+ participants</li>
+    </ul>
+    <p class="reveal" style="margin-top:3rem">Want to chat? <a href="mailto:jeffreyxu44@gmail.com">jeffreyxu44@gmail.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <ul class="socials">
+    <li><a href="https://linkedin.com/in/jeffreyxu44" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a></li>
+    <li><a href="https://github.com/jxu44" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg></a></li>
+  </ul>
+  <p>© 2026 Jeffrey Xu</p>
+</footer>
+
+<script>
+  // fade/slide each .reveal element in the first time it scrolls into view
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
